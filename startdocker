@@ -1,0 +1,18 @@
+#!/bin/bash
+NAME=bbu4g-ubuntu
+VERSION=16.04
+HOSTNAME=env-docker
+USERNAME=fw-builder # use for non-root user
+CONTAINER_NAME=${USER}_${NAME}_${VERSION}
+
+if ! docker ps -a | grep -q $CONTAINER_NAME; then
+  docker run -h $HOSTNAME --name=$CONTAINER_NAME --privileged=true --net=host \
+  --user $USERNAME -ti $NAME:$VERSION /bin/bash
+elif docker ps -a | grep $CONTAINER_NAME | grep -q Exited; then
+  docker start $CONTAINER_NAME
+  docker attach $CONTAINER_NAME
+else
+  docker attach $CONTAINER_NAME
+fi
+
+# docker run -v (--volume=[host-src]): shared file systems
