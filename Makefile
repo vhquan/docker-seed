@@ -1,5 +1,5 @@
 NAME=custom-docker
-VERSION=16.04
+VERSION=0.0.1
 HOSTNAME=env-docker
 USERNAME=fw-builder # use for non-root user
 CONTAINER_NAME=$(USER)_$(NAME)_$(VERSION)
@@ -11,5 +11,9 @@ build:
 		--build-arg https_proxy=$(https_proxy) --build-arg no_proxy=$(no_proxy) \
 		--build-arg user=$(USERNAME) --network host .
 
+release:
+	docker save $(NAME):$(VERSION) | gzip > $(NAME)_$(VERSION).tar.gz
+
 clean:
+	@rm -rf $(NAME)_$(VERSION).tar.gz
 	docker rmi -f $(NAME):$(VERSION)
