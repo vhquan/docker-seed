@@ -1,5 +1,5 @@
 #!/bin/bash
-NAME=bbu4g-ubuntu
+NAME=custom-docker
 VERSION=16.04
 HOSTNAME=env-docker
 USERNAME=fw-builder # use for non-root user
