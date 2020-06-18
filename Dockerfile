@@ -10,6 +10,9 @@ ENV no_proxy $no_proxy
 ARG user
 ENV USER $user
 
+# Add path to this as default PATH variable, for sure 100% works, not use in .bashrc or .profile
+ENV PATH="/usr/local/bin/:${PATH}"
+
 # Tell apt-get we're never going to be able to give manual
 # feedback:
 ENV DEBIAN_FRONTEND noninteractive
